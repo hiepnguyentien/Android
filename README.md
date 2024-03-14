@@ -11,7 +11,7 @@
 
 ## Công nghệ sử dụng
 - ReactJS 18.0.4
-- ASP.NET Core 7.0
+- ASP.NET Core 8.0
 - SQL Server 2022
 
 ## Cài đặt để Code Front-end
@@ -19,7 +19,7 @@
 
 ## Cài đặt (Cho User)
 - Cài [NodeJS](https://nodejs.org/dist/v20.8.1/node-v20.8.1-x64.msi) phiên bản 20.8.1
-- Cài [.NET 7.0 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+- Cài [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
 - Clone project về máy
 - Mở project bằng [Visual Studio Code](https://code.visualstudio.com/download)
 - Mở terminal và chạy lệnh `npm install` để cài đặt các thư viện cần thiết
