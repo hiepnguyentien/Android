@@ -1,7 +1,5 @@
 <div style="text-align:center;">
   
-## **ĐỒ ÁN CÔNG NGHỆ WEB NÂNG CAO**
-### **Đề tài: Website nghe nhạc**
 </div>
 
 ## Thành viên nhóm
