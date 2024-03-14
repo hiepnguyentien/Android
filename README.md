@@ -7,10 +7,9 @@
 ## Thành viên nhóm
 | STT | Họ và tên | MSSV | Email |
 | :---: | --- | --- | --- |
-| 1 | Phạm Đức Duy | 0184466 | duy0184466@huce.edu.vn |
+| 1 |  |  | 
 | 2 |  |  |
 | 3 |  |  |
-| 4 |  |  |
 
 ## Công nghệ sử dụng
 - ReactJS 18.0.4
