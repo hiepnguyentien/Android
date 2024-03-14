@@ -1,0 +1,48 @@
+http://localhost:5271/track
+    method: GET
+    usecase: lấy tất cả track trong database
+    auth: false
+
+http://localhost:5271/track/2
+    method: GET
+    usecase: lấy track theo id (như ví dụ là id = 2)
+    auth: false
+
+http://localhost:5271/track/user/2
+    method: GET
+    usecase: lấy tất cả track được upload bởi user (như ví dụ là userid = 2)
+    auth: false
+
+http://localhost:5271/track/name/em
+    method: GET
+    usecase: lấy tất cả track có tên chứa chuỗi (như ví dụ là em)
+    auth: false
+
+http://localhost:5271/track/update/3
+    method: PUT
+    usecase: update track theo id (như ví dụ là id = 3)
+    body: (form-data)
+        model: {
+                "TrackName": "tên mới",  
+                "Description": "Description mới"
+            }
+        fileArtWork : file
+    auth: true
+
+http://localhost:5271/track/upload
+    method: POST
+    usecase: upload track
+    body: (form-data)
+    model: {
+            "TrackName": "tên mới",  
+            "Description": "Description mới",
+            "IsPrivate": true
+        }
+        fileArtWork: file mới.jpg
+        fileTrack: file mới.mp3
+    auth: true
+
+http://localhost:5271/track/10
+    method: DELETE
+    usecase: xóa track theo id (như ví dụ là id = 10)
+    auth: true

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-progressbar": "^15.4.1",
+    "react-router-dom": "^6.21.0"
+  }
+}

@@ -1,0 +1,41 @@
+http://localhost:5271/comment/
+    method: GET
+    usecase: lấy tất cả comment trong database
+    body: {}
+    auth: true
+http://localhost:5271/comment/track/2
+    method: GET
+    usecase: lấy tất cả comment theo TrackId (ví dụ trackId = 2)
+    body: {}
+    auth: false
+http://localhost:5271/comment/violation
+    method: GET
+    usecase: lấy tất cả comment bị report/vi phạm
+    body: {}
+    auth: true
+http://localhost:5271/comment/5
+    method: PUT
+    usecase: sửa comment (ví dụ commentId = 5)
+    body: 
+    {
+    "Content": "test đổi cmt"
+    }
+    auth: true
+http://localhost:5271/comment/report/4
+    method: PUT
+    usecase: report comment (ví dụ commentId = 4)
+    body: {}
+    auth: true
+http://localhost:5271/comment/1002
+    method: DELETE
+    usecase: xóa comment (ví dụ commentId = 1002)
+    body: {}
+    auth: true
+http://localhost:5271/comment/track/2
+    method: POST
+    usecase: tạo comment cho track (ví dụ trackId = 2)
+    body: 
+    {
+    "Content": "test comment"
+    }
+    auth: true

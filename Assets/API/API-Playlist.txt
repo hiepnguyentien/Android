@@ -1,0 +1,75 @@
+"/playlist": 
+"/playlist?page=1":
+	method: GET
+	usecase: "lấy danh sách playlist công khai có phân trang"
+	auth: false
+
+"/playlist/1": 
+	method: GET
+	usecase: "lấy thông tin playlist công khai có id=1"
+	auth: false
+
+"/playlist/admin/all":
+	method: GET
+	usecase: "lấy danh sách playlist (cả công khai và riêng tư) của app"
+	auth: true
+
+"/playlist/user/all":
+	method: GET
+	usecase: "lấy danh sách playlist của user"
+	auth: true
+
+"/playlist/user/1":
+	method: GET
+	usecase: "lấy playlist (cả riêng tư & công khai) của user có id=1"
+	auth: true
+
+"/playlist/artwork/anh.jpg":
+	method: GET
+	usecase: "lấy ảnh artwork của playlist"
+	auth: false
+
+"/playlist/search?keyword=abc":
+	method: GET
+	usecase: "tìm kiếm playlist có chứa keyword"
+	auth: false
+
+"/playlist" : 
+	method: POST
+	usecase: "thêm playlist cho user gọi tới"
+	body :
+		type : form-data
+		model : 
+			{ "Name": "Playlist Remix", "IsPrivate": true, "TrackIds": [1, 2, 5, 6] }
+		artwork : FILE (trống được)
+	auth: true
+
+"/playlist/1/repost" : 
+	method: POST
+	usecase: "repost playlist cho user gọi tới"
+	auth: true
+
+"/playlist/1/like" : 
+	method: PUT
+	usecase: "like/dislike playlist"
+	auth: true
+
+"/playlist/1/information" :
+	method: PUT
+	usecase: "cập nhật playlist có id=1"
+	body :
+		type : form-data
+		model : 
+			{ "Name": "Playlist Remix", "IsPrivate": true, "TrackIds": [1, 2, 5, 6] }
+		artwork : FILE (trống được)
+	auth: true
+
+"/playlist/user/1" :
+	method: DELETE
+	usecase: "xóa playlist có id=1 do user gọi tới tạo ra"
+	auth: true
+
+"/playlist/admin/1" :
+	method: DELETE
+	usecase: "xóa playlist có id=1 do admin gọi tới"
+	auth: true

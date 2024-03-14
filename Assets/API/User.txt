@@ -1,0 +1,29 @@
+"/user":
+"/user?page=1":
+    method: GET
+    usecase: "Lấy danh sách user"
+    auth: true
+
+"/user/1":
+    method: GET
+    usecase: "Lấy thông tin user"
+    auth: true
+
+"/user":
+    method: DELETE
+    usecase: "User tự khóa tài khoản user"
+    auth: true
+
+"/user/1":
+    method: DELETE
+    usecase: "Admin khóa user có id=1"
+    auth: true
+
+"/user":
+    method: PUT
+    usecase: "User tự cập nhật thông tin user"
+    auth: true
+    body: (form-data)
+		model : 
+			{"UserName": "B", "PhoneNumber": "102111231342", "Email": "BC", "FullName": null} 
+		avatar : FILE (trống được)
