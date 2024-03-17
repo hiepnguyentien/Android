@@ -103,7 +103,7 @@ public class TrackController : ControllerBase
 
     [HttpPost]
     [AppAuthorize(ERole.USER)]
-    public async Task<IActionResult> Update(
+    public async Task<IActionResult> Addnew(
         [FromForm] string model,
         IFormFile? fileArtwork,
         IFormFile fileTrack)
