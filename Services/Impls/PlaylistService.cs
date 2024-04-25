@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using android.Context;
 using android.Entities;
@@ -8,7 +9,6 @@ using android.Models.Responses;
 using android.Models.Securities;
 using android.Models.Updates;
 using android.Tools;
-using Microsoft.EntityFrameworkCore;
 
 namespace android.Services.Impl;
 
@@ -17,7 +17,6 @@ public class PlaylistService : IPlaylistService
     private readonly ApplicationContext _context;
 
     private readonly int PAGE_SIZE = 10;
-
     public PlaylistService(ApplicationContext context)
     {
         _context = context;
@@ -25,8 +24,8 @@ public class PlaylistService : IPlaylistService
 
     public async Task<IEnumerable<PlaylistResponseModel>> GetAllByGuest(int page)
     {
-        return await _context
-            .Playlists.OrderBy(p => p.Id)
+        return await _context.Playlists
+            .OrderBy(p => p.Id)
             .Skip((page - 1) * PAGE_SIZE)
             .Take(PAGE_SIZE)
             .Where(p => !p.IsPrivate)
@@ -36,7 +35,7 @@ public class PlaylistService : IPlaylistService
                 PlaylistName = p.Name,
                 AuthorName = p.Author.UserName!,
                 CreatedAt = p.CreatedAt,
-                Description = p.Description,
+                Description = p.Description,            
                 ArtWork = p.ArtWork,
                 Tags = TagTool.GetTags(p.Tags),
             })
@@ -45,16 +44,14 @@ public class PlaylistService : IPlaylistService
 
     public async Task<PlaylistResponseModel?> GetViaIdByGuest(int playlistId)
     {
-        var playlist =
-            await _context
-                .Playlists.Include(p => p.Author)
+        var playlist = await _context.Playlists
+                .Include(p => p.Author)
                 .FirstOrDefaultAsync(p => p.Id == playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không tìm thấy playlist yêu cầu");
+            ?? throw new AppException(HttpStatusCode.NotFound,
+                "Không tìm thấy playlist yêu cầu");
         if (playlist.IsPrivate)
-            throw new AppException(
-                HttpStatusCode.Forbidden,
-                "Chủ sở hữu đã tắt hiển thị playlist này"
-            );
+            throw new AppException(HttpStatusCode.Forbidden,
+                "Chủ sở hữu đã tắt hiển thị playlist này");
         return new PlaylistResponseModel
         {
             Id = playlistId,
@@ -68,22 +65,20 @@ public class PlaylistService : IPlaylistService
             RepostCount = playlist.RepostCount,
             ArtWork = playlist.ArtWork,
             Tags = TagTool.GetTags(playlist.Tags),
-            TrackIds = _context
-                .TrackPlaylists.Where(tp => tp.PlaylistId == playlistId)
-                .Select(tp => tp.TrackId)
-                .ToList()
+            TrackIds = _context.TrackPlaylists
+                    .Where(tp => tp.PlaylistId == playlistId)
+                    .Select(tp => tp.TrackId)
+                    .ToList()
         };
     }
 
     public async Task<IEnumerable<PlaylistResponseModel>> SearchByAdmin(string keyword)
     {
-        return await _context
-            .Playlists.Where(p =>
-                p.Name.Contains(keyword)
-                || (p.Tags != null && p.Tags.Contains(keyword))
-                || $"{p.Author.FirstName} {p.Author.LastName} {p.Author.UserName}".Contains(keyword)
-                || (p.Description != null && p.Description.Contains(keyword))
-            )
+        return await _context.Playlists
+            .Where(p => p.Name.Contains(keyword)
+                    || (p.Tags != null && p.Tags.Contains(keyword)) 
+                    || $"{p.Author.FirstName} {p.Author.LastName} {p.Author.UserName}".Contains(keyword)
+                    || (p.Description != null && p.Description.Contains(keyword)))
             .Select(p => new PlaylistResponseModel
             {
                 Id = p.Id,
@@ -100,15 +95,10 @@ public class PlaylistService : IPlaylistService
 
     public async Task<IEnumerable<PlaylistResponseModel>> SearchByGuest(string keyword)
     {
-        return await _context
-            .Playlists.Where(p =>
-                !p.IsPrivate
-                && (
-                    p.Name.Contains(keyword)
+        return await _context.Playlists
+            .Where(p => !p.IsPrivate && (p.Name.Contains(keyword)
                     || (p.Tags != null && p.Tags.Contains(keyword))
-                    || (p.Description != null && p.Description.Contains(keyword))
-                )
-            )
+                    || (p.Description != null && p.Description.Contains(keyword))))
             .Select(p => new PlaylistResponseModel
             {
                 Id = p.Id,
@@ -125,8 +115,8 @@ public class PlaylistService : IPlaylistService
 
     public async Task<IEnumerable<PlaylistResponseModel>> GetAllByAdmin(int page)
     {
-        return await _context
-            .Playlists.OrderBy(p => p.Id)
+        return await _context.Playlists
+            .OrderBy(p => p.Id)
             .Skip((page - 1) * PAGE_SIZE)
             .Take(PAGE_SIZE)
             .Select(p => new PlaylistResponseModel
@@ -144,35 +134,35 @@ public class PlaylistService : IPlaylistService
                 Tags = TagTool.GetTags(p.Tags),
             })
             .ToListAsync();
-    }
+    }  
 
-    public async Task<PlaylistResponseModel> GetById(int playlistId, long userId, bool isAdmin)
-    {
+    public async Task<PlaylistResponseModel> GetById(int playlistId, long userId, bool isAdmin) {
         var p = await _context.Playlists.FindAsync(playlistId)!;
         if (userId != p.Id)
         {
-            throw new AppException(HttpStatusCode.NotFound, "Không tìm thấy playlist yêu cầu");
+            throw new AppException(HttpStatusCode.NotFound, 
+                    "Không tìm thấy playlist yêu cầu");
         }
         return new PlaylistResponseModel
-        {
-            Id = p.Id,
-            AuthorId = p.AuthorId,
-            PlaylistName = p.Name,
-            AuthorName = p.Author.UserName!,
-            CreatedAt = p.CreatedAt,
-            LikeCount = p.LikeCount,
-            RepostCount = p.RepostCount,
-            Description = p.Description,
-            ArtWork = p.ArtWork,
-            Tags = TagTool.GetTags(p.Tags),
-            IsPrivate = p.IsPrivate
-        };
+                    {
+                        Id = p.Id,
+                        AuthorId = p.AuthorId,
+                        PlaylistName = p.Name,
+                        AuthorName = p.Author.UserName!,
+                        CreatedAt = p.CreatedAt,
+                        LikeCount = p.LikeCount,
+                        RepostCount = p.RepostCount,
+                        Description = p.Description,
+                        ArtWork = p.ArtWork,
+                        Tags = TagTool.GetTags(p.Tags),
+                        IsPrivate = p.IsPrivate
+                    };
     }
 
     public async Task<IEnumerable<PlaylistResponseModel>> GetAllByUser(long userId)
     {
-        return await _context
-            .Playlists.Where(p => p.AuthorId == userId)
+        return await _context.Playlists
+            .Where(p => p.AuthorId == userId)
             .Select(p => new PlaylistResponseModel
             {
                 Id = p.Id,
@@ -192,80 +182,72 @@ public class PlaylistService : IPlaylistService
 
     public async Task<PlaylistResponseModel?> GetViaIdByUser(int playlistId, long userId)
     {
-        var result =
-            await _context
-                .Playlists.Where(p => p.AuthorId == userId && p.Id == playlistId)
-                .FirstOrDefaultAsync()
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không tìm thấy playlist yêu cầu");
+        var result = await _context.Playlists
+            .Where(p => p.AuthorId == userId && p.Id == playlistId)
+            .FirstOrDefaultAsync()
+                ?? throw new AppException(HttpStatusCode.NotFound, 
+                    "Không tìm thấy playlist yêu cầu");
         return new PlaylistResponseModel
-        {
-            Id = result.Id,
-            PlaylistName = result.Name,
-            AuthorName = UserTool.GetAuthorName(result.Author),
-            CreatedAt = result.CreatedAt,
-            AuthorId = result.AuthorId,
-            LikeCount = result.LikeCount,
-            IsPrivate = result.IsPrivate,
-            RepostCount = result.RepostCount,
-            Description = result.Description,
-            ArtWork = result.ArtWork,
-            Tags = TagTool.GetTags(result.Tags),
-            TrackIds = await _context
-                .TrackPlaylists.Where(tp => tp.PlaylistId == playlistId)
-                .Select(tp => tp.TrackId)
-                .ToListAsync()
-        };
+            {
+                Id = result.Id,
+                PlaylistName = result.Name,
+                AuthorName = UserTool.GetAuthorName(result.Author),
+                CreatedAt = result.CreatedAt,
+                AuthorId = result.AuthorId,
+                LikeCount = result.LikeCount,
+                IsPrivate = result.IsPrivate,
+                RepostCount = result.RepostCount,
+                Description = result.Description,
+                ArtWork = result.ArtWork,
+                Tags = TagTool.GetTags(result.Tags),
+                TrackIds = await _context.TrackPlaylists
+                    .Where(tp => tp.PlaylistId == playlistId)
+                    .Select(tp => tp.TrackId)
+                    .ToListAsync()
+        };  
     }
 
     public async Task Like(int playlistId, long userId)
     {
-        var playlist =
-            await _context.Playlists.FindAsync(playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không tìm thấy playlist yêu cầu");
+        var playlist = await _context.Playlists.FindAsync(playlistId) 
+            ?? throw new AppException(HttpStatusCode.NotFound, 
+                "Không tìm thấy playlist yêu cầu");
         if (playlist.IsPrivate)
-            throw new AppException(
-                HttpStatusCode.Forbidden,
-                "Playlist này đã bị chủ sở hữu tắt hiển thị"
-            );
-        var like = await _context.LikePlaylists.FirstOrDefaultAsync(l =>
-            l.UserId == userId && l.PlaylistId == playlistId
-        );
+            throw new AppException(HttpStatusCode.Forbidden, 
+                "Playlist này đã bị chủ sở hữu tắt hiển thị");
+        var like = await _context.LikePlaylists
+            .FirstOrDefaultAsync(l => l.UserId == userId && l.PlaylistId == playlistId);
         if (like == null)
         {
             playlist.LikeCount++;
-            await _context.LikePlaylists.AddAsync(
-                new LikePlaylist { PlaylistId = playlistId, UserId = userId, }
-            );
+            await _context.LikePlaylists.AddAsync(new LikePlaylist
+            {
+                PlaylistId = playlistId,
+                UserId = userId,
+            });
         }
         else
         {
             playlist.LikeCount--;
-            if (playlist.LikeCount < 0)
+            if (playlist.LikeCount < 0) 
                 playlist.LikeCount = 0;
             _context.LikePlaylists.Remove(like);
         }
         await _context.SaveChangesAsync();
     }
 
-    public async Task<ResponseModel> AddNew(
-        PlaylistInsertModel model,
-        IFormFile? artwork,
-        long userId
-    )
+    public async Task<ResponseModel> AddNew(PlaylistInsertModel model, IFormFile? artwork, long userId)
     {
-        if (string.IsNullOrEmpty(model.Name))
-            throw new AppException(HttpStatusCode.BadRequest, "Tên playlist không được để trống");
+        if (string.IsNullOrEmpty(model.Name)) 
+            throw new AppException(HttpStatusCode.BadRequest, 
+                "Tên playlist không được để trống");
         if (model.TrackIds == null || !model.TrackIds.Any())
-            throw new AppException(
-                HttpStatusCode.BadRequest,
-                "Phải có ít nhất 1 track để tạo được playlist"
-            );
+            throw new AppException(HttpStatusCode.BadRequest,
+                "Phải có ít nhất 1 track để tạo được playlist");
         // Chống việc 1 user tạo playlist trùng tên
         if (_context.Playlists.Any(p => p.AuthorId == userId && p.Name == model.Name))
-            throw new AppException(
-                HttpStatusCode.BadRequest,
-                $"Đã tồn tại playlist tên {model.Name}"
-            );
+            throw new AppException(HttpStatusCode.BadRequest, 
+                $"Đã tồn tại playlist tên {model.Name}");
         var playlist = new Playlist
         {
             Name = model.Name,
@@ -279,8 +261,7 @@ public class PlaylistService : IPlaylistService
         {
             await FileTool.SaveArtwork(artwork);
             playlist.ArtWork = artwork.FileName;
-        }
-        else
+        } else 
         {
             playlist.ArtWork = "default.png";
         }
@@ -295,50 +276,39 @@ public class PlaylistService : IPlaylistService
 
     public async Task Repost(int playlistId, long userId)
     {
-        var playlist =
-            await _context.Playlists.FindAsync(playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không thấy playlist yêu cầu");
+        var playlist = await _context.Playlists.FindAsync(playlistId)
+             ?? throw new AppException(HttpStatusCode.NotFound, 
+            "Không thấy playlist yêu cầu");
         playlist.RepostCount++;
         await _context.SaveChangesAsync();
-        await _context.Playlists.AddAsync(
-            new Playlist
-            {
-                Name = playlist.Name,
-                Description = playlist.Description,
-                IsPrivate = playlist.IsPrivate,
-                Tags = playlist.Tags,
-                AuthorId = userId,
-                CreatedAt = DateTime.UtcNow,
-                ArtWork = playlist.ArtWork,
-                LikeCount = playlist.LikeCount,
-                RepostCount = playlist.RepostCount,
-            }
-        );
+        await _context.Playlists.AddAsync(new Playlist
+        {
+            Name = playlist.Name,
+            Description = playlist.Description,
+            IsPrivate = playlist.IsPrivate,
+            Tags = playlist.Tags,
+            AuthorId = userId,
+            CreatedAt = DateTime.UtcNow,
+            ArtWork = playlist.ArtWork,
+            LikeCount = playlist.LikeCount,
+            RepostCount = playlist.RepostCount,
+        });
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateInfomation(
-        int playlistId,
-        PlaylistUpdateModel model,
-        IFormFile? artwork,
-        long userId
-    )
+    public async Task UpdateInfomation(int playlistId, PlaylistUpdateModel model, IFormFile? artwork, long userId)
     {
         if (await _context.Playlists.AnyAsync(p => p.Author.Id == userId && p.Name == model.Name))
         {
-            throw new AppException(
-                HttpStatusCode.BadRequest,
-                $"Bạn đã tạo playlist có tên {model.Name} rồi"
-            );
+            throw new AppException(HttpStatusCode.BadRequest, 
+                $"Bạn đã tạo playlist có tên {model.Name} rồi");
         }
-        var playlist =
-            await _context.Playlists.FindAsync(playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không thấy playlist yêu cầu");
+        var playlist = await _context.Playlists.FindAsync(playlistId) 
+            ?? throw new AppException(HttpStatusCode.NotFound, 
+                "Không thấy playlist yêu cầu");
         if (playlist.AuthorId != userId)
-            throw new AppException(
-                HttpStatusCode.Forbidden,
-                "Bạn không có quyền chỉnh sửa playlist này"
-            );
+            throw new AppException(HttpStatusCode.Forbidden, 
+                "Bạn không có quyền chỉnh sửa playlist này");
 
         playlist.Name = model.Name;
         playlist.Description = model.Description;
@@ -355,21 +325,20 @@ public class PlaylistService : IPlaylistService
 
     public async Task DeleteByCreator(int playlistId, long userId)
     {
-        var playlist =
-            await _context.Playlists.FindAsync(playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không thấy playlist yêu cầu");
+        var playlist = await _context.Playlists.FindAsync(playlistId) 
+            ?? throw new AppException(HttpStatusCode.NotFound, 
+                "Không thấy playlist yêu cầu");
         if (playlist.AuthorId != userId)
-            throw new AppException(HttpStatusCode.Forbidden, "Bạn không có quyền xóa playlist này");
-
-        var trackPlaylists = await _context
-            .TrackPlaylists.Where(tp => tp.PlaylistId == playlistId)
-            .ToListAsync();
+            throw new AppException(HttpStatusCode.Forbidden, 
+                "Bạn không có quyền xóa playlist này");
+        
+        var trackPlaylists = await _context.TrackPlaylists
+            .Where(tp => tp.PlaylistId == playlistId).ToListAsync();
         if (trackPlaylists != null)
             _context.TrackPlaylists.RemoveRange(trackPlaylists);
-
-        var likes = await _context
-            .LikePlaylists.Where(l => l.PlaylistId == playlistId)
-            .ToListAsync();
+        
+        var likes = await _context.LikePlaylists
+            .Where(l => l.PlaylistId == playlistId).ToListAsync();
         if (likes != null)
             _context.LikePlaylists.RemoveRange(likes);
         _context.Playlists.Remove(playlist);
@@ -378,76 +347,21 @@ public class PlaylistService : IPlaylistService
 
     public async Task DeleteByAdmin(int playlistId)
     {
-        var playlist =
-            await _context.Playlists.FindAsync(playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không thấy playlist yêu cầu");
-
-        var trackPlaylists = await _context
-            .TrackPlaylists.Where(tp => tp.PlaylistId == playlistId)
-            .ToListAsync();
+        var playlist = await _context.Playlists.FindAsync(playlistId)
+            ?? throw new AppException(HttpStatusCode.NotFound,
+                "Không thấy playlist yêu cầu");
+        
+        var trackPlaylists = await _context.TrackPlaylists
+            .Where(tp => tp.PlaylistId == playlistId).ToListAsync();
         if (trackPlaylists != null)
             _context.TrackPlaylists.RemoveRange(trackPlaylists);
-
-        var likes = await _context
-            .LikePlaylists.Where(l => l.PlaylistId == playlistId)
-            .ToListAsync();
+        
+        var likes = await _context.LikePlaylists
+            .Where(l => l.PlaylistId == playlistId).ToListAsync();
         if (likes != null)
             _context.LikePlaylists.RemoveRange(likes);
-
+        
         _context.Playlists.Remove(playlist);
         await _context.SaveChangesAsync();
-    }
-
-    public async Task<IEnumerable<TrackResponseModel>> PlaylistByOrder(int playlistId)
-    {
-        var playlist =
-            await _context.Playlists.FindAsync(playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không thấy playlist yêu cầu");
-        var query =
-            from track in _context.Tracks
-            join trackPlaylist in _context.TrackPlaylists on track.Id equals trackPlaylist.TrackId
-            join playlists in _context.Playlists on trackPlaylist.PlaylistId equals playlists.Id
-            where playlists.Id == playlistId
-            select new TrackResponseModel
-            {
-                Id = track.Id,
-                TrackName = track.Name,
-                Author = UserTool.GetAuthorName(track.Author),
-                FileName = track.FileName,
-                ArtWork = track.ArtWork,
-                Description = track.Description,
-                UploadAt = track.UploadAt,
-                ListenCount = track.ListenCount,
-                LikeCount = track.LikeCount,
-                CommentCount = track.CommentCount
-            };
-        return await query.ToListAsync();
-    }
-
-    public async Task<IEnumerable<TrackResponseModel>> PlaylistRandomly(int playlistId)
-    {
-        var playlist =
-            await _context.Playlists.FindAsync(playlistId)
-            ?? throw new AppException(HttpStatusCode.NotFound, "Không thấy playlist yêu cầu");
-        var random = new Random();
-        var query =
-            (from track in _context.Tracks
-            join trackPlaylist in _context.TrackPlaylists on track.Id equals trackPlaylist.TrackId
-            join playlists in _context.Playlists on trackPlaylist.PlaylistId equals playlists.Id
-            where playlists.Id == playlistId
-            select new TrackResponseModel
-            {
-                Id = track.Id,
-                TrackName = track.Name,
-                Author = UserTool.GetAuthorName(track.Author),
-                FileName = track.FileName,
-                ArtWork = track.ArtWork,
-                Description = track.Description,
-                UploadAt = track.UploadAt,
-                ListenCount = track.ListenCount,
-                LikeCount = track.LikeCount,
-                CommentCount = track.CommentCount
-            }).ToList().OrderBy(x => random.Next());
-        return query;
     }
 }
