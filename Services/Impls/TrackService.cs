@@ -361,4 +361,9 @@ public class TrackService : ITrackService
         }
         return FileTool.ReadTrack(fileName);
     }
+
+    public Task<Stream> NextTrack(string fileName, long userId)
+    {
+        throw new NotImplementedException();
+    }
 }

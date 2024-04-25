@@ -24,14 +24,15 @@ public interface ITrackService
     public Task<IEnumerable<TrackResponseModel>> GetAllByGuest(int page);
     // Tìm kiếm tất cả track cuả user
     public Task<IEnumerable<TrackResponseModel>> SearchByUser(string input, long userId);
-    
-
     // Tìm kiếm track bởi guest
     public Task<IEnumerable<TrackResponseModel>> SearchByGuest(string input);
     
     // Nghe nhạc
     public Task<Stream> PlayTrack(string fileName, long userId);
 
+    // Next nhạc
+    public Task<Stream> NextTrack(string fileName, long userId);
+    
     // Cập nhật thông tin track
     public Task UpdateInfomation(TrackUpdateModel model, IFormFile? fileArtwork, int trackId, long userid);
     
