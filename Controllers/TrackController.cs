@@ -21,24 +21,20 @@ public class TrackController : ControllerBase
         _authService = authService;
     }
 
-    [HttpGet("all/{page:int}")]
-    public async Task<IActionResult> GetAllTrack(int page)
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAllTrack()
     {
-        if (page < 1)
-        {
-            page = 1;
-        }
         var authInformation = await _authService.ValidateToken(Request);
         if (authInformation != null)
         {
             return authInformation.Role switch
             {
-                ERole.ADMIN => Ok(await _trackService.GetAllByAdmin(page)),
-                ERole.USER => Ok(await _trackService.GetAllByGuestByUser(authInformation.UserId, page)),
-                _ => Ok(await _trackService.GetAllByGuest(page)),
+                ERole.ADMIN => Ok(await _trackService.GetAllByAdmin()),
+                ERole.USER => Ok(await _trackService.GetAllByGuestByUser(authInformation.UserId)),
+                _ => Ok(await _trackService.GetAllByGuest()),
             };
         }
-        return Ok(await _trackService.GetAllByGuest(page));
+        return Ok(await _trackService.GetAllByGuest());
     }
 
     [HttpGet("library")]

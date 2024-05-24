@@ -8,7 +8,7 @@ public interface ITrackService
 {
     // Admin
     // Lấy tất cả track có phân trang
-    public Task<IEnumerable<TrackResponseModel>> GetAllByAdmin(int page);
+    public Task<IEnumerable<TrackResponseModel>> GetAllByAdmin();
     // Tìm kiếm các track cả public cả private
     public Task<IEnumerable<TrackResponseModel>> SearchByAdmin(string input);
 
@@ -18,10 +18,10 @@ public interface ITrackService
     // Lấy tất cả track của user
     public Task<IEnumerable<TrackResponseModel>> GetAllUploadedByUser(long uid);
     // Lấy tất cả track public và của user có phân trang
-    public Task<IEnumerable<TrackResponseModel>> GetAllByGuestByUser(long uid, int page);
+    public Task<IEnumerable<TrackResponseModel>> GetAllByGuestByUser(long uid);
     // Guest
     // Lấy tất cả track public có phân trang
-    public Task<IEnumerable<TrackResponseModel>> GetAllByGuest(int page);
+    public Task<IEnumerable<TrackResponseModel>> GetAllByGuest();
     // Tìm kiếm tất cả track cuả user
     public Task<IEnumerable<TrackResponseModel>> SearchByUser(string input, long userId);
     // Tìm kiếm track bởi guest

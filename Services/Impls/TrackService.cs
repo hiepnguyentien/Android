@@ -22,11 +22,9 @@ public class TrackService : ITrackService
         _context = context;
     }
 
-    public async Task<IEnumerable<TrackResponseModel>> GetAllByAdmin(int page)
+    public async Task<IEnumerable<TrackResponseModel>> GetAllByAdmin()
     {
         return await _context.Tracks
-            .Skip((page - 1) * PAGE_SIZE)
-            .Take(PAGE_SIZE)
             .Select(track => new TrackResponseModel()
                 {
                     Id = track.Id,
@@ -63,13 +61,11 @@ public class TrackService : ITrackService
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<TrackResponseModel>> GetAllByGuestByUser(long uid, int page)
+    public async Task<IEnumerable<TrackResponseModel>> GetAllByGuestByUser(long uid)
     {
         return await _context.Tracks
             .Where(t => t.AuthorId == uid || !t.IsPrivate)
             .OrderBy(t => t.Id)
-            .Skip((page - 1) * PAGE_SIZE)
-            .Take(PAGE_SIZE)
             .Select(track => new TrackResponseModel()
             {
                 Id = track.Id,
@@ -108,13 +104,11 @@ public class TrackService : ITrackService
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<TrackResponseModel>> GetAllByGuest(int page)
+    public async Task<IEnumerable<TrackResponseModel>> GetAllByGuest()
     {
         return await _context.Tracks
             .Where(t => !t.IsPrivate)
             .OrderBy(t => t.Id)
-            .Skip((page - 1) * PAGE_SIZE)
-            .Take(PAGE_SIZE)
             .Select(track => new TrackResponseModel()
             {
                 Id = track.Id,
