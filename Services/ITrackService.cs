@@ -31,7 +31,7 @@ public interface ITrackService
     public Task<Stream> PlayTrack(string fileName, long userId);
 
     // Next nhạc
-    public Task<Stream> NextTrack(string fileName, long userId);
+    public Task<string> GetNextTrack(string currentFileName);
     
     // Cập nhật thông tin track
     public Task UpdateInfomation(TrackUpdateModel model, IFormFile? fileArtwork, int trackId, long userid);
