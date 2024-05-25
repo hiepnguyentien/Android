@@ -1,4 +1,4 @@
--- Active: 1709197271422@@127.0.0.1@1433@Android@dbo
+-- Active: 1715625487462@@127.0.0.1@1433@android
 use android;
 INSERT INTO [Categories] (Name, Description)
 VALUES
@@ -28,9 +28,9 @@ VALUES ('android','android', 'android@gmail.com', 'android@gmail.com', 'True', '
        ('chien', 'chien','mail3@gmail.com', 'mail3@gmail.com', 'True', 'security_stamp', 'concurrency_stamp', 'False', 'False', 'False', 0);
 INSERT INTO Tracks (Name, FileName, Description, Artwork, AuthorId, UploadAt, IsPrivate, ListenCount, LikeCount, CommentCount)
 VALUES
-    (N'7 Years', N'7_Years.mp3', 'Lukas Graham', N'7-Years.jpg', 4, '2023-10-10 09:10:10', 'true', 0, 0, 2),
+    (N'7 Years', N'7_Years.mp3', 'Lukas Graham', N'7-Years.jpg', 4, '2023-10-10 09:10:10', 'false', 0, 0, 2),
     (N'Buồn thì cứ khóc đi', N'Buon_Thi_Cu_Khoc_Di.mp3', 'Lynk Lee', N'Buon-Thi-Cu-Khoc-Di.jpg', 4, '2023-10-10 09:11:01', 'false', 0, 1, 2),
-    (N'Đã lỡ yêu em nhiều', N'Da_Lo_Yeu_Em_Nhieu.mp3', 'JustaTee', N'Da-Lo-Yeu-Em-Nhieu.jpg', 4, '2023-10-10 09:12:12', 'true', 0, 0, 0),
+    (N'Đã lỡ yêu em nhiều', N'Da_Lo_Yeu_Em_Nhieu.mp3', 'JustaTee', N'Da-Lo-Yeu-Em-Nhieu.jpg', 4, '2023-10-10 09:12:12', 'false', 0, 0, 0),
     (N'Nandemonaiya ', N'Nandemonaiya.mp3', '1012', N'default-artwork.jpg', 4, '2023-10-10 09:13:32', 'false', 0, 0, 0),
     (N'Rap chậm thôi', N'Rap_Cham_Thoi.mp3', 'MCK', N'Rap-Cham-Thoi.jpg', 7, '2023-06-21 10:14:12', 'false', 0, 0, 0),
     (N'Thủ Đô Cypher', N'Thu_Do_Cypher.mp3', 'MCK, LowG', N'Thu-Do-Cypher.jpg', 4, '2023-10-10 09:40:12', 'false', 0, 0, 0);
