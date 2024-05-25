@@ -67,7 +67,8 @@ public class CommentService : ICommentService
                          IsEdited = comment.IsEdited,
                          UserId = comment.UserId,
                          TrackId = comment.TrackId,
-                         User = $"{user.FirstName} {user.LastName}"
+                         TrackName = track.Name,
+                         Username = comment.User.UserName
                      };
         return await result.ToListAsync();
     }
@@ -88,7 +89,8 @@ public class CommentService : ICommentService
                          IsEdited = comment.IsEdited,
                          UserId = comment.UserId,
                          TrackId = comment.TrackId,
-                         User = $"{user.FirstName} {user.LastName}"
+                         TrackName = track.Name,
+                         Username = comment.User.UserName
                      };
         return await result.ToListAsync();
     }
@@ -109,7 +111,8 @@ public class CommentService : ICommentService
                          IsEdited = comment.IsEdited,
                          UserId = comment.UserId,
                          TrackId = comment.TrackId,
-                         User = $"{user.FirstName} {user.LastName}"
+                         TrackName = track.Name,
+                         Username = comment.User.UserName
                      };
         return await result.ToListAsync();
     }
@@ -186,7 +189,8 @@ public class CommentService : ICommentService
                          IsEdited = comment.IsEdited,
                          UserId = comment.UserId,
                          TrackId = comment.TrackId,
-                         User = $"{user.FirstName} {user.LastName}"
+                         TrackName = track.Name,
+                         Username = comment.User.UserName
                      };
         return await result.ToListAsync();
     }
@@ -207,7 +211,8 @@ public class CommentService : ICommentService
                          IsEdited = comment.IsEdited,
                          UserId = comment.UserId,
                          TrackId = comment.TrackId,
-                         User = $"{user.FirstName} {user.LastName}"
+                         TrackName = track.Name,
+                         Username = comment.User.UserName
                      };
         return await result.ToListAsync();
     }
@@ -219,7 +224,7 @@ public class CommentService : ICommentService
                          on comment.UserId equals user.Id
                      join track in _context.Tracks
                          on comment.TrackId equals track.Id
-                     where user.FirstName.Contains(query) || user.LastName.Contains(query)
+                     where user.UserName.Contains(query)
                      select new CommentResponseModel
                      {
                          Id = comment.Id,
@@ -228,7 +233,8 @@ public class CommentService : ICommentService
                          IsEdited = comment.IsEdited,
                          UserId = comment.UserId,
                          TrackId = comment.TrackId,
-                         User = $"{user.FirstName} {user.LastName}"
+                         TrackName = track.Name,
+                         Username = comment.User.UserName
                      };
         return await result.ToListAsync();
     }
