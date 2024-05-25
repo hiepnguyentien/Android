@@ -13,4 +13,5 @@ public class CommentResponseModel
     public int TrackId { get; set; }
     public string TrackName { get; set; } = null!;
     public bool IsReported { get; set; }
+    public string? Avatar { get; set; }
 }

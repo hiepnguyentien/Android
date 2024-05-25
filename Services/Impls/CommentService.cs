@@ -90,7 +90,8 @@ public class CommentService : ICommentService
                          UserId = comment.UserId,
                          TrackId = comment.TrackId,
                          TrackName = track.Name,
-                         Username = comment.User.UserName
+                         Username = comment.User.UserName,
+                         Avatar = comment.User.Avatar
                      };
         return await result.ToListAsync();
     }
