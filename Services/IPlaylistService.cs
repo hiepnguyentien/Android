@@ -9,7 +9,7 @@ public interface IPlaylistService
 {
     // Guest
     // Lấy theo phân trang các playlist public
-    Task<IEnumerable<PlaylistResponseModel>> GetAllByGuest(int page);
+    Task<IEnumerable<PlaylistResponseModel>> GetAllByGuest();
     //  Lấy playlist có id = playlistId nếu được đặt public
     Task<PlaylistResponseModel?> GetViaIdByGuest(int playlistId);
     // Tìm kiếm theo tên playlist/tên người tạo/mô tả
@@ -19,7 +19,7 @@ public interface IPlaylistService
 
     // Admin
     // Lấy tất cả playlist của tất cả user phân trang
-    Task<IEnumerable<PlaylistResponseModel>> GetAllByAdmin(int page);
+    Task<IEnumerable<PlaylistResponseModel>> GetAllByAdmin();
     Task<PlaylistResponseModel> GetById(int trackId, long userId, bool isAdmin);
 
     // User

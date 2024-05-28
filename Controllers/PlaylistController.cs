@@ -23,23 +23,19 @@ public class PlaylistController : ControllerBase
         _authService = authService;
     }   
     
-    [HttpGet("all/{page}")]
-    public async Task<IActionResult> GetPublic(int page)
+    [HttpGet("all")]
+    public async Task<IActionResult> GetPublic()
     {
-        if (page < 1)
-        {
-            page = 1;
-        }
         var authInformation = await _authService.ValidateToken(Request);
         if (authInformation == null)
         {
-            return Ok(await _playlistService.GetAllByGuest(page));
+            return Ok(await _playlistService.GetAllByGuest());
         }
         return authInformation.Role switch
         {
-            ERole.ADMIN => Ok(await _playlistService.GetAllByAdmin(page)),
+            ERole.ADMIN => Ok(await _playlistService.GetAllByAdmin()),
             ERole.USER => Ok(await _playlistService.GetAllByUser(authInformation.UserId)),
-            _ => Ok(await _playlistService.GetAllByGuest(page)),
+            _ => Ok(await _playlistService.GetAllByGuest()),
         };
     }
 

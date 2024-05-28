@@ -22,12 +22,10 @@ public class PlaylistService : IPlaylistService
         _context = context;
     }
 
-    public async Task<IEnumerable<PlaylistResponseModel>> GetAllByGuest(int page)
+    public async Task<IEnumerable<PlaylistResponseModel>> GetAllByGuest()
     {
         return await _context.Playlists
             .OrderBy(p => p.Id)
-            .Skip((page - 1) * PAGE_SIZE)
-            .Take(PAGE_SIZE)
             .Where(p => !p.IsPrivate)
             .Select(p => new PlaylistResponseModel
             {
@@ -113,12 +111,10 @@ public class PlaylistService : IPlaylistService
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<PlaylistResponseModel>> GetAllByAdmin(int page)
+    public async Task<IEnumerable<PlaylistResponseModel>> GetAllByAdmin()
     {
         return await _context.Playlists
             .OrderBy(p => p.Id)
-            .Skip((page - 1) * PAGE_SIZE)
-            .Take(PAGE_SIZE)
             .Select(p => new PlaylistResponseModel
             {
                 Id = p.Id,
