@@ -88,11 +88,11 @@ INSERT INTO [Playlists] (Name, CreatedAt, IsPrivate, AuthorId, Description, ArtW
 VALUES 
         ('TopBXH', '2023-10-11 10:11:00', 'false', 1, 'Playlist thịnh hành', 'default-artwork.jpg', '#BXH, #Top', 0, 0, 1),
         ('TopMoiNhat', '2023-10-11 10:11:00', 'false', 1, 'Playlist  mới nhất', 'default-artwork.jpg', '#Top, #MoiNhat', 0, 10, 1),
-        ('NhacCuaHiep', '2023-10-11 10:11:00', 'true', 3, 'Playlist theo gu hiep', 'default-artwork.jpg', NULL, 1, 1, 0),
+        ('NhacCuaHiep', '2023-10-11 10:11:00', 'false', 3, 'Playlist theo gu hiep', 'default-artwork.jpg', NULL, 1, 1, 0),
         ('NhacCuaDuy', '2023-10-11 10:11:00', 'false', 4, 'Playlist theo gu duy', 'default-artwork.jpg', NULL, 1, 10, 0),
-        ('NhacCuaQuang', '2023-10-11 10:11:00', 'true', 5, 'Playlist theo gu quang', 'default-artwork.jpg', NULL,1, 0, 0),
-        ('NhacCuaYouzo', '2023-10-11 10:11:00', 'true', 6, 'Playlist theo gu youzo', 'default-artwork.jpg', NULL, 0, 0, 0),
-        ('NhacCuaChien', '2023-10-11 10:11:00', 'true', 7, 'Playlist theo gu chien', 'default-artwork.jpg', NULL, 1, 2, 0);
+        ('NhacCuaQuang', '2023-10-11 10:11:00', 'false', 5, 'Playlist theo gu quang', 'default-artwork.jpg', NULL,1, 0, 0),
+        ('NhacCuaYouzo', '2023-10-11 10:11:00', 'false', 6, 'Playlist theo gu youzo', 'default-artwork.jpg', NULL, 0, 0, 0),
+        ('NhacCuaChien', '2023-10-11 10:11:00', 'false', 7, 'Playlist theo gu chien', 'default-artwork.jpg', NULL, 1, 2, 0);
 INSERT INTO LikePlaylist (UserId, PlaylistId)
 VALUES 
         (1, 3),
