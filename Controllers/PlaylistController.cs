@@ -71,18 +71,6 @@ public class PlaylistController : ControllerBase
         return Ok(await _playlistService.SearchByGuest(keyword));
     }
 
-    [HttpGet("{id}/tracks")]
-    public async Task<IActionResult> PlaylistByOrder(int id)
-    {
-        return Ok(await _playlistService.PlaylistByOrder(id));
-    }
-    
-    [HttpGet("{id}/tracks/random")]
-    public async Task<IActionResult> PlaylistRandomly(int id)
-    {
-        return Ok(await _playlistService.PlaylistRandomly(id));
-    }
-
     [HttpPost]
     [AppAuthorize(ERole.USER)]
     public async Task<IActionResult> AddNew(

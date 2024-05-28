@@ -365,13 +365,4 @@ public class PlaylistService : IPlaylistService
         await _context.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<TrackResponseModel>> PlaylistByOrder(int playlistId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<TrackResponseModel>> PlaylistRandomly(int playlistId)
-    {
-        throw new NotImplementedException();
-    }
 }

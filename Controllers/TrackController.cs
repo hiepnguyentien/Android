@@ -75,6 +75,22 @@ public class TrackController : ControllerBase
             enableRangeProcessing: true);
     }
 
+    [HttpGet("media/{filenamec}")]
+    public async Task<IActionResult> PlayTrackContinue([FromRoute] string filenamec)
+    {
+        var authInformation = await _authService.ValidateToken(Request);
+        var filename2 = await _trackService.GetNextTrack(filenamec);
+        if (authInformation != null)
+        {
+            return File(await _trackService.PlayTrack(filename2, authInformation.UserId),
+                "audio/mpeg",
+                enableRangeProcessing: true);
+        }
+        return File(await _trackService.PlayTrack(filename2, 0),
+            "audio/mpeg",
+            enableRangeProcessing: true);
+    }
+
     [HttpGet("artwork/{filename}")]
     public IActionResult GetArtworkTrack([FromRoute] string filename)
     {

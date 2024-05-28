@@ -356,8 +356,56 @@ public class TrackService : ITrackService
         return FileTool.ReadTrack(fileName);
     }
 
-    public Task<Stream> NextTrack(string fileName, long userId)
+    public Task<string> GetNextTrack(string currentFileName)
     {
-        throw new NotImplementedException();
+        var nextTrack = _context.Tracks
+            .Where(t => t.FileName != currentFileName)
+            .OrderBy(t => t.Id)
+            .FirstOrDefault();
+        return Task.FromResult(nextTrack?.FileName);
+    }
+
+        public Task<IEnumerable<TrackResponseModel>> PlaylistByOrder(int playlistId)
+    {
+        var tracks = _context.TrackPlaylists
+            .Where(tp => tp.PlaylistId == playlistId)
+            .OrderBy(tp => tp.TrackId)
+            .Select(tp => new TrackResponseModel
+            {
+                Id = tp.TrackId,
+                TrackName = tp.Track.Name,
+                Author = tp.Track.Author.UserName!,
+                ArtWork = tp.Track.ArtWork,
+                UploadAt = tp.Track.UploadAt,
+                LikeCount = tp.Track.LikeCount,
+                FileName = tp.Track.FileName,
+                IsPrivate = tp.Track.IsPrivate,
+                ListenCount = tp.Track.ListenCount,
+                CommentCount = tp.Track.CommentCount,
+                Description = tp.Track.Description
+            });
+        return Task.FromResult(tracks.AsEnumerable());
+    }
+
+    public Task<IEnumerable<TrackResponseModel>> PlaylistRandomly(int playlistId)
+    {
+        var tracks = _context.TrackPlaylists
+            .Where(tp => tp.PlaylistId == playlistId)
+            .OrderBy(tp => Guid.NewGuid())
+            .Select(tp => new TrackResponseModel
+            {
+                Id = tp.TrackId,
+                TrackName = tp.Track.Name,
+                Author = tp.Track.Author.UserName!,
+                ArtWork = tp.Track.ArtWork,
+                UploadAt = tp.Track.UploadAt,
+                LikeCount = tp.Track.LikeCount,
+                FileName = tp.Track.FileName,
+                IsPrivate = tp.Track.IsPrivate,
+                ListenCount = tp.Track.ListenCount,
+                CommentCount = tp.Track.CommentCount,
+                Description = tp.Track.Description
+            });
+        return Task.FromResult(tracks.AsEnumerable());
     }
 }

@@ -34,7 +34,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [AppAuthorize(ERole.ADMIN)]
+    [AppAuthorize(ERole.USER)]
     public async Task<IActionResult> GetById(int id)
     {
         return Ok(await _userService.GetById(id));

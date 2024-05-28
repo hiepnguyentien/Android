@@ -15,10 +15,7 @@ public interface IPlaylistService
     // Tìm kiếm theo tên playlist/tên người tạo/mô tả
     Task<IEnumerable<PlaylistResponseModel>> SearchByGuest(string keyword);
     Task<IEnumerable<PlaylistResponseModel>> SearchByAdmin(string keyword);
-    // Phát nhạc của playlist theo thứ tự
-    Task<IEnumerable<TrackResponseModel>> PlaylistByOrder(int playlistId);
-    // Phát nhạc của playlist ngẫu nhiên
-    Task<IEnumerable<TrackResponseModel>> PlaylistRandomly(int playlistId);
+
 
     // Admin
     // Lấy tất cả playlist của tất cả user phân trang

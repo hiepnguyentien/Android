@@ -30,6 +30,11 @@ public interface ITrackService
     // Nghe nhạc
     public Task<Stream> PlayTrack(string fileName, long userId);
 
+        // Phát nhạc của playlist theo thứ tự
+    Task<IEnumerable<TrackResponseModel>> PlaylistByOrder(int playlistId);
+    // Phát nhạc của playlist ngẫu nhiên
+    Task<IEnumerable<TrackResponseModel>> PlaylistRandomly(int playlistId);
+
     // Next nhạc
     public Task<string> GetNextTrack(string currentFileName);
     
