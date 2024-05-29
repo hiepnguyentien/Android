@@ -34,14 +34,14 @@ VALUES
     (N'Nandemonaiya ', N'Nandemonaiya.mp3', '1012', N'default-artwork.jpg', 4, '2023-10-10 09:13:32', 'false', 0, 0, 0),
     (N'Rap chậm thôi', N'Rap_Cham_Thoi.mp3', 'MCK', N'Rap-Cham-Thoi.jpg', 7, '2023-06-21 10:14:12', 'false', 0, 0, 0),
     (N'Thủ Đô Cypher', N'Thu_Do_Cypher.mp3', 'MCK, LowG', N'Thu-Do-Cypher.jpg', 4, '2023-10-10 09:40:12', 'false', 0, 0, 0),
-    (N'Lạc nhau có phải muôn đời', N'LẠC NHAU CÓ PHẢI MUÔN ĐỜI  Official Music Video.mp3', 'Erik', N'default-artwork.jpg', 7, '2023-06-21 10:14:12', 'false', 0, 0, 0),
-    (N'Âm thầm bên em', N'Âm thầm bên em  SƠN TÙNG MTP.mp3', 'Nhạc của sếp', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
-    (N'Chúng ta của hiện tại', N'Chúng Ta Của Hiện Tại.mp3', 'Nhạc của sếp', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
-    (N'Có chắc yêu là đây', N'CÓ CHẮC YÊU LÀ ĐÂY REMIX  SHOW RECAP.mp3', 'Nhạc của sếp', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
-    (N'Nếu lúc đó', N'CÓ CHẮC YÊU LÀ ĐÂY REMIX  SHOW RECAP.mp3', 'nhạc suy quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
-    (N'Tôi chỉ muốn nói', N'Tôi chỉ muốn nói.mp3', 'nhạc hay quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
-    (N'Vì một câu nói', N'Vì một câu nói.mp3', 'nhạc này hay quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
-    (N'Đường một chiều', N'Đường Một Chiều  Huỳnh Tú ft Magazine  Official Music Video.mp3', 'giọng chị Huỳnh Tú hay quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0);
+    (N'Lạc nhau có phải muôn đời', N'Lac_nhau_co_phai_muon_doi.mp3', 'Erik', N'default-artwork.jpg', 7, '2023-06-21 10:14:12', 'false', 0, 0, 0),
+    (N'Âm thầm bên em', N'Am_tham_ben_em.mp3', 'Nhạc của sếp', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
+    (N'Chúng ta của hiện tại', N'Chung_ta_cua_hien_tai.mp3', 'Nhạc của sếp', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
+    (N'Có chắc yêu là đây', N'Co_chac_yeu_la_day.mp3', 'Nhạc của sếp', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
+    (N'Nếu lúc đó', N'Neu_luc_do.mp3', 'nhạc suy quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
+    (N'Tôi chỉ muốn nói', N'Toi_chi_muon_noi.mp3', 'nhạc hay quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
+    (N'Vì một câu nói', N'Vi_mot_cau_noi.mp3', 'nhạc này hay quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0),
+    (N'Đường một chiều', N'Duong_mot_chieu.mp3', 'giọng chị Huỳnh Tú hay quá', N'default-artwork.jpg', 3, '2023-06-21 10:14:12', 'false', 0, 0, 0);
 
 INSERT INTO Tracks_Categories (TrackId, CategoryId)
 VALUES
